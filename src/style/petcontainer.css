@@ -1,0 +1,21 @@
+.pet-container{
+    height: auto;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: start;
+    gap: 1.8rem;
+    flex-wrap: wrap;
+    box-sizing: border-box;
+    padding: 3rem;
+}
+.pet-card{
+    flex: 0 0 30%;
+    height: 15rem;
+    background-color: #E0A75E;
+    border-radius: 10px 0 10px 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
