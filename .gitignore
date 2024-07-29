@@ -10,7 +10,8 @@
 
 # production
 /build
-
+#apis
+/src/components/firebaseAuth.js
 # misc
 .DS_Store
 .env.local
