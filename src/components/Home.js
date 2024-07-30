@@ -2,11 +2,22 @@ import { useNavigate } from 'react-router-dom';
 import dog from '../assets/dog.png'
 import logo from '../assets/pawssible.png'
 import PetContainer from './petdetails';
+import { useState } from 'react';
+import AdminConsole from './AdminConsole';
 const Home = () => {
     const navigate = useNavigate()
+    const [isAdmin,setIsAdmin] = useState(localStorage.getItem('admin'))
+    const [adminConsole,setadminconsole] = useState(false)
+    const handleLogout = () => {
+        localStorage.setItem('admin', false);
+        setIsAdmin(false);
+    };
         return ( 
         <div className = "home-container" >
-            <div className="navbar-title">
+            {
+                !adminConsole?(
+                    <>
+                        <div className="navbar-title">
                 <div className="logo">
                     <img src={logo} alt="" />
                 </div>
@@ -14,7 +25,16 @@ const Home = () => {
                     Pawssible
                 </div>
                 <div className="login-button">
-                    <input type="button" value="Admin Login" onClick={()=>{navigate('/login')}}/>
+                    {
+                        isAdmin?(
+                                <>
+                                    <input type="button" value="Logout" onClick={()=>{handleLogout()}}/>
+                                    <input type="button" value='admin console'onClick={()=>{setadminconsole(true)}}/>
+                                </>
+                        ):(
+                            <input type="button" value="Admin Login" onClick={()=>{navigate('/login')}}/>
+                        )
+                    }
                 </div>
             </div>
             <div className="image-and-title-container">
@@ -36,6 +56,11 @@ const Home = () => {
                 </div>
             </div>
             <PetContainer/>
+                    </>
+                ):(
+                    <AdminConsole/>
+                )
+            }
         </div> 
         );
         }

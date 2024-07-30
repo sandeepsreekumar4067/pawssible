@@ -2,6 +2,7 @@ import {  useState } from "react";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import '../style/login.css'
 import AdminConsole from "./AdminConsole";
+import { Navigate, useNavigate } from "react-router-dom";
 const Login = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
@@ -9,6 +10,7 @@ const Login = () => {
     const [passwordVisibility, setPasswordVisibility] = useState(false);
     const username = 'tomjohny2003'
     const Password = 'veryverysupersecretpassword852'
+    const navigate = useNavigate()
     const handlePasswordInput = (e) => {
         setPassword(e.target.value);
     };
@@ -19,7 +21,8 @@ const Login = () => {
     const checkCredentials = ()=>{
         if((username===email) && (password===Password)){
             alert('Login Successfull')
-            setAdmin(true)
+            localStorage.setItem('admin',true)
+            navigate('/')
         }else{
             alert('Get lost you are not an Admin')
         }
