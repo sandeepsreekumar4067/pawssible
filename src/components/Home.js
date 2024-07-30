@@ -1,7 +1,9 @@
+import { useNavigate } from 'react-router-dom';
 import dog from '../assets/dog.png'
 import logo from '../assets/pawssible.png'
 import PetContainer from './petdetails';
 const Home = () => {
+    const navigate = useNavigate()
         return ( 
         <div className = "home-container" >
             <div className="navbar-title">
@@ -12,7 +14,7 @@ const Home = () => {
                     Pawssible
                 </div>
                 <div className="login-button">
-                    <input type="button" value="Admin Login" />
+                    <input type="button" value="Admin Login" onClick={()=>{navigate('/login')}}/>
                 </div>
             </div>
             <div className="image-and-title-container">
