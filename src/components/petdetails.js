@@ -13,6 +13,7 @@ import {
 import '../style/petcontainer.css'
 const PetContainer = () => {
     const [petData, setPetData] = useState([])
+    const [isAdmin,setIsAdmin] = useState(localStorage.getItem('admin'))
         const fetchPetDetails = async () => {
             const petref = collection(db, 'Pet Details')
             const snapShot = await getDocs(petref)
@@ -24,19 +25,27 @@ const PetContainer = () => {
         }
         useEffect(() => {
             fetchPetDetails();
+            setIsAdmin(localStorage.getItem('admin'))
         }, []);
 
         useEffect(() => {
-            console.log(petData);
+            console.log(isAdmin);
+            setIsAdmin(localStorage.getItem('admin'))
         }, [petData]);
     return ( 
         <div className="pet-container">
             {
                 petData.map((pet)=>(
                     <div key={pet.id} className="pet-card">
-                        <div className="name">{pet.name}</div>
-                        <div className="age">{pet.age} </div>
-                        <div className="breed">{pet.breed} </div>
+                        <div className="pet-image">
+
+                        </div>
+                        <div className="pet-details">
+
+                        </div>
+                        <div className="delete-button">
+                            delete
+                        </div>
                     </div>
                 ))
             }
