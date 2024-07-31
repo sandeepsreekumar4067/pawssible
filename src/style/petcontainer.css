@@ -16,7 +16,7 @@
     border-radius: 10px 0 10px 0;
     display: flex;
     align-items: center;
-    justify-content: start;
+    justify-content: space-evenly;
     box-sizing: border-box;
     padding: 0.6rem;
     gap: 0.8rem;
@@ -50,4 +50,16 @@
 .breed{
     font-size: 1.5rem;
     font-weight: 500;
+}
+.delete-button{
+    height: 60%;
+    width: 10%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    display: none;
+    cursor: pointer;
+}
+.delete-button.active{
+    display: flex;
 }

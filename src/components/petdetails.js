@@ -1,6 +1,8 @@
 import {
     collection,
-    getDocs
+    getDocs,
+    deleteDoc,
+    doc
 } from 'firebase/firestore';
 import '../style/home.css'
 import {
@@ -11,6 +13,7 @@ import {
     useState
 } from 'react';
 import '../style/petcontainer.css'
+import { MdDelete } from "react-icons/md";
 const PetContainer = () => {
     const [petData, setPetData] = useState([])
     const [isAdmin,setIsAdmin] = useState(false)
@@ -22,6 +25,18 @@ const PetContainer = () => {
                 ...doc.data()
             }))
             setPetData(await fetchedData)
+        }
+        const handleDeletePet = async(id,name) =>{
+            if(window.confirm(`Do you want to delete ${name}? Once done, it cannot be undone.`)){
+                try{
+                    const petref = doc(db,'Pet Details',id)
+                    await deleteDoc(petref)
+                    fetchPetDetails()
+                    alert(`${name}'s details has been deleted`)
+                }catch(e){
+                    alert(e)
+                }
+            }  
         }
         useEffect(() => {
             fetchPetDetails();
@@ -47,7 +62,8 @@ const PetContainer = () => {
                                 {pet.breed}
                             </div>
                         </div>
-                        <div className={`delete-button ${isAdmin?'active':''}`}>
+                        <div className={`delete-button ${isAdmin?'active':''}`} onClick={()=>{handleDeletePet(pet.id,pet.name)}}>
+                            <MdDelete size={40}/>
                         </div>
                     </div>
                 ))
