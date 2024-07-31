@@ -49,7 +49,7 @@ const PetContainer = () => {
                 petData.map((pet)=>(
                     <div key={pet.id} className="pet-card">
                         <div className="pet-image">
-
+                            <img src={pet.url} alt="" />
                         </div>
                         <div className="pet-details">
                             <div className="name">

@@ -8,6 +8,7 @@ const AdminConsole = () => {
     const [age, setAge] = useState('');
     const [breed, setBreed] = useState('');
     const [image,setImage] = useState('')
+    const [imageURL, setImageURL] = useState(null);
     const handleSubmit = async (e) => {
         e.preventDefault();
         if(!image){
@@ -29,14 +30,19 @@ const AdminConsole = () => {
             setAge('');
             setBreed('');
             setImage(null)
+            setImageURL(null)
         } catch (error) {
             console.error('Error adding document: ', error);
             alert('Failed to add pet details');
         }
     };
     const handleImage = (e) =>{
-        if(e.target.file[0]){
-            setImage(e.target.files[0])
+        const file = e.target.files[0];
+        if (file && file.type.startsWith('image/')) {
+            setImage(file);
+            setImageURL(URL.createObjectURL(file)); // Optionally, set a preview URL
+        } else {
+            alert('Please select a valid image file');
         }
     }
     return (
@@ -72,7 +78,8 @@ const AdminConsole = () => {
                 </div>
                 <div>
                     <label>Image</label>
-                    <input type="file" required onChange={handleImage}/>
+                    <input type="file" accept="image/*" required onChange={handleImage} />
+                    {imageURL && <img src={imageURL} alt="Selected" style={{width: '100px', height: '100px'}} />} {/* Optional image preview */}
                 </div>
                 <button type="submit">Add Pet</button>
             </form>
