@@ -35,7 +35,7 @@
     box-sizing: border-box;
     padding: 0.8rem;
     align-items: center;
-    justify-content: start;
+    justify-content: space-evenly;
     gap: 1rem;
     flex-direction: column;
 }
