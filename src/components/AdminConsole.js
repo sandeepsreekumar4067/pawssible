@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
-import { db } from './firebaseAuth';
+import { db ,storage } from './firebaseAuth';
 import { collection, addDoc } from 'firebase/firestore';
 import '../style/adminconsole.css'
+import { getDownloadURL, ref, uploadBytes } from 'firebase/storage';
 const AdminConsole = () => {
     const [name, setName] = useState('');
     const [age, setAge] = useState('');
@@ -14,15 +15,20 @@ const AdminConsole = () => {
             return
         }
         try {
+            const imageRef = ref(storage,`images/${image.name}`)
+            await uploadBytes(imageRef,image)
+            const url = await getDownloadURL(imageRef)
             await addDoc(collection(db, 'Pet Details'), {
                 name,
                 age,
-                breed
+                breed,
+                url
             });
             alert('Pet details added successfully');
             setName('');
             setAge('');
             setBreed('');
+            setImage(null)
         } catch (error) {
             console.error('Error adding document: ', error);
             alert('Failed to add pet details');
