@@ -10,16 +10,16 @@ const Home = () => {
     const [isAdmin, setIsAdmin] = useState(false);
     const [adminConsole, setAdminConsole] = useState(false);
 
-    useEffect(() => {
-        const adminStatus = localStorage.getItem('admin') === 'true';
-        setIsAdmin(adminStatus);
-    }, []);
-
     const handleLogout = () => {
         localStorage.setItem('admin', 'false');
         setIsAdmin(false);
         setAdminConsole(false);
     };
+    useEffect(() => {
+        const adminStatus = localStorage.getItem('admin') === 'true';
+        setIsAdmin(adminStatus);
+    }, [isAdmin]);
+
 
     return (
         <div className="home-container">

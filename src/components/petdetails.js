@@ -13,7 +13,7 @@ import {
 import '../style/petcontainer.css'
 const PetContainer = () => {
     const [petData, setPetData] = useState([])
-    const [isAdmin,setIsAdmin] = useState(localStorage.getItem('admin'))
+    const [isAdmin,setIsAdmin] = useState(false)
         const fetchPetDetails = async () => {
             const petref = collection(db, 'Pet Details')
             const snapShot = await getDocs(petref)
@@ -25,13 +25,9 @@ const PetContainer = () => {
         }
         useEffect(() => {
             fetchPetDetails();
-            setIsAdmin(localStorage.getItem('admin'))
+            const adminStatus = localStorage.getItem('admin') === 'true';
+            setIsAdmin(adminStatus)
         }, []);
-
-        useEffect(() => {
-            console.log(isAdmin);
-            setIsAdmin(localStorage.getItem('admin'))
-        }, [petData]);
     return ( 
         <div className="pet-container">
             {
@@ -41,10 +37,17 @@ const PetContainer = () => {
 
                         </div>
                         <div className="pet-details">
-
+                            <div className="name">
+                                {pet.name}
+                            </div>
+                            <div className="age">
+                                {pet.age}
+                            </div>
+                            <div className="breed">
+                                {pet.breed}
+                            </div>
                         </div>
-                        <div className="delete-button">
-                            delete
+                        <div className={`delete-button ${isAdmin?'active':''}`}>
                         </div>
                     </div>
                 ))
